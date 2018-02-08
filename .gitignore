@@ -1,0 +1,5 @@
+.idea/
+yarn.lock
+root/app/node_modules/
+root/app/build/
+root/app/package-lock.json
