@@ -21,7 +21,7 @@ const gauges = {
 const main = () => {
   // Spawn the child process, the command rtl_443 with parameters required to read the Efergy
   // Energy devices
-  const cmd = spawn('rtl_433', ['-f', '433.55e6', '-R', '36', '-F', 'json']);
+  const cmd = spawn('/app/rtl_433', ['-f', '433.55e6', '-R', '36', '-F', 'json']);
 
   // Use carrier to build a buffer delimited by line
   const line = carrier.carry(cmd.stdout);
