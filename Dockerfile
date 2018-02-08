@@ -11,6 +11,9 @@ COPY root/ /
 
 # install packages
 RUN \
+ echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+ apk add --no-cache && \
+    rtl-sdr && \
  echo "**** build node application ****" && \
  cd /app && npm install && npm run build && mv build/main.js . && \
  echo "**** cleanup ****" && \
