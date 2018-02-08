@@ -11,11 +11,11 @@ const scrapeInterval = (config.scrapeInterval || 15) * 1000;
 const defaultMetrics = Prometheus.collectDefaultMetrics({ timeout: scrapeInterval });
 
 const gauges = {
-  battery: new Prometheus.Gauge({ name: 'battery', help: 'Battery status' }),
-  energy: new Prometheus.Gauge({ name: 'energy', help: 'Energy now' }),
-  current: new Prometheus.Gauge({ name: 'current', help: 'Current output' }),
-  interval: new Prometheus.Gauge({ name: 'interval', help: 'Interval' }),
-  learn: new Prometheus.Gauge({ name: 'learn', help: 'Learn mode' }),
+  battery: new Prometheus.Gauge({ name: 'efergy_battery', help: 'Battery status' }),
+  energy: new Prometheus.Gauge({ name: 'efergy_energy', help: 'Energy now' }),
+  current: new Prometheus.Gauge({ name: 'efergy_current', help: 'Current output' }),
+  interval: new Prometheus.Gauge({ name: 'efergy_interval', help: 'Interval' }),
+  learn: new Prometheus.Gauge({ name: 'efergy_learn', help: 'Learn mode' }),
 };
 
 const main = () => {
@@ -55,7 +55,6 @@ const main = () => {
   cmd.on('error', (error) => {
     console.log('Failed to start process', error);
   });
-
 };
 
 // Setup our HTTP webserver
