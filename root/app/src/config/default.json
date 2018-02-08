@@ -1,5 +1,4 @@
 {
   "voltage": 240,
-  "port": 9122,
-  "queryInterval": 10
+  "port": 9122
 }
