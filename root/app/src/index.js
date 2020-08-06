@@ -2,6 +2,7 @@ import express from 'express';
 import Prometheus from 'prom-client';
 import { spawn } from 'child_process';
 import carrier from 'carrier';
+import fetch from 'node-fetch';
 import loadConfig from './config';
 
 const config = loadConfig('/config/efergyexporter.json', ['voltage']);
@@ -39,6 +40,18 @@ const main = () => {
       gauges.current.set(jsonData.current);
       gauges.interval.set(jsonData.interval);
       gauges.learn.set(jsonData.learn === 'NO' ? 0 : 1);
+
+      if (config.hasOwnProperty('REST')) {
+        const url = config.REST;
+        const body = {
+          ...jsonData
+        };
+        fetch(url, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body,
+        }).catch(e => console.log(e));
+      }
     } catch (err) {
       console.log('Unable to parse incoming data', err);
     }

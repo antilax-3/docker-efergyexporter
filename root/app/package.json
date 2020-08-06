@@ -9,6 +9,7 @@
     "backpack-core": "^0.5.0",
     "carrier": "^0.3.0",
     "express": "^4.16.2",
+    "node-fetch": "^2.6.0",
     "prom-client": "^10.2.2"
   },
   "scripts": {
