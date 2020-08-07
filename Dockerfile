@@ -1,4 +1,22 @@
-FROM node:alpine
+# ====================================
+# ===== Build image for rtl_433  =====
+# ====================================
+FROM alpine AS builder-rtl433
+
+RUN apk add --no-cache git rtl-sdr autoconf build-base cmake libtool librtlsdr-dev
+
+RUN git clone https://github.com/merbanan/rtl_433.git && \
+cd rtl_433 && \
+mkdir build && \
+cd build && \
+cmake .. && \
+make && \
+make install
+
+# ================================
+# ===== efergyexporter image =====
+# ================================
+FROM node:alpine3.12
 
 # set environment variables
 ENV NODE_CONFIG_DIR /config
@@ -6,17 +24,16 @@ ENV NODE_CONFIG_DIR /config
 # set working directory
 WORKDIR /app
 
-# copy local files
+# copy files
 COPY root/ /
+COPY --from=builder-rtl433 /usr/local/bin/rtl_433 /app/
 
 # install packages
 RUN \
- echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
  apk add --no-cache \
-    rtl-sdr \
-    gcompat && \
+    rtl-sdr && \
  echo "**** build node application ****" && \
- cd /app && npm install && npm run build && mv build/main.js . && \
+ cd /app && chmod +x rtl_433 && npm install && npm run build && mv build/main.js . && \
  echo "**** cleanup ****" && \
  rm -rf \
     package*.json \
