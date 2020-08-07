@@ -43,9 +43,7 @@ const main = () => {
 
       if (config.hasOwnProperty('REST')) {
         const url = config.REST;
-        const body = JSON.stringify({
-          ...jsonData
-        });
+        const body = JSON.stringify(jsonData);
         fetch(url, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
