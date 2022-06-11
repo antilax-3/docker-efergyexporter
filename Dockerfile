@@ -33,7 +33,7 @@ RUN \
  apk add --no-cache \
     rtl-sdr && \
  echo "**** build node application ****" && \
- cd /app && chmod +x rtl_433 && npm install && npm run build && mv build/main.js . && \
+ cd /app && chmod +x rtl_433 && npm install && NODE_OPTIONS=--openssl-legacy-provider npm run build && mv build/main.js . && \
  echo "**** cleanup ****" && \
  rm -rf \
     package*.json \
